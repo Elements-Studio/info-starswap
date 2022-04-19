@@ -50,11 +50,9 @@ export default {
     },
     getToken_() {
       tokenList({}).then((res) => {
-        console.log(222,res)
+        // console.log(222,res)
         this.tokens = res
         alignLeft()
-        
-        // document.getElementsByTagName('thead')[0].childNodes[0].childNodes[1].style.textAlign = 'left'
       })
     }
   }

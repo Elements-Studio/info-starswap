@@ -15,10 +15,11 @@
     </div>
     <div class="elhjpH">
       <div class="sc-cIShpX cgTRve">
-        <div class="sc-jKJlTe sc-hMqMXs sc-kafWEX jxEzql">
+        <a class="go-app" href="https://starswap.xyz/" target="_blank">App</a>
+        <!-- <div class="sc-jKJlTe sc-hMqMXs sc-kafWEX jxEzql">
           <input type="text" placeholder="Search pools or tokens" class="sc-feJyhm eveKoa" value="" />
           <div class="sc-chPdSV jpxwCK css-wz3k0m">⌘/</div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -174,5 +175,13 @@ export default {
 }
 .jpxwCK {
   color: rgb(64, 68, 79);
+}
+.go-app{
+  border-radius: 12px;
+  background-color: #2c2f36;
+  color: white;
+  margin: 0px 6px;
+  padding: 8px 12px;
+  font-weight: 500;
 }
 </style>

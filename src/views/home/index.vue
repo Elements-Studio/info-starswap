@@ -76,6 +76,10 @@ export default {
         title: {
           text: 'TVL'
         },
+        formatter: (params) => {
+          // console.log(params[0].data) 
+          return this.coinUnitConvert(params[0].data)
+        },
         tooltip: {
           trigger: 'axis',
           axisPointer: {
@@ -83,7 +87,7 @@ export default {
             label: {
               backgroundColor: '#6a7985'
             }
-          }
+          },
         },
         grid: {
           left: '-6%',
@@ -168,6 +172,10 @@ export default {
           right: '0%',
           bottom: '3%',
           containLabel: true
+        },
+        formatter: (params) => {
+          // console.log(params[0].data) 
+          return this.coinUnitConvert(params[0].data)
         },
         tooltip: {
           show: true,

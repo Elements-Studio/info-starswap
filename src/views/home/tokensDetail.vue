@@ -84,7 +84,7 @@ import Header from '../../../src/components/header'
 // import { setToken, removeToken } from '@/utils/auth'
 import { getTokenDetail, tokenPrice, tokenList } from '@/api/interface'
 import PoolsList from '../../../src/components/poolsList'
-import { alignLeft, transformDate, transformTime, unitConvert } from '@/utils/public'
+import { alignLeft, transformDate, unitConvert } from '@/utils/public'
 import TransactionsList from '../../../src/components/transactionsList'
 import * as echarts from 'echarts'
 
@@ -103,7 +103,11 @@ export default {
         title: {
           text: 'Volume'
         },
-       tooltip: {
+        formatter: (params) => {
+          // console.log(params[0].data) 
+          return this.coinUnitConvert(params[0].data)
+        },
+        tooltip: {
           show: true,
           position: ['10', '13%'],
           textStyle:{
@@ -143,7 +147,7 @@ export default {
         ],
         series: [
           {
-            name: 'Volume',
+            name: '',
             type: 'bar',
             data: []
           }
@@ -153,6 +157,9 @@ export default {
         color: ['#80FFA5'],
         title: {
           text: 'TVL'
+        },
+        formatter: (params) => {
+          return this.coinUnitConvert(params[0].data)
         },
         tooltip: {
           show: true,
@@ -429,10 +436,16 @@ export default {
     getTokenPrice() {
       tokenPrice({ page: 1, token: this.token, count: 30 }).then((res) => {
         // console.log(222, res)
-        const splitData = []
-
+         const newData = []
         res.forEach((e) => {
-          splitData.push([transformDate(e.timestamp), e.max_price, e.min_price, e.price, e.rate])
+          newData.push({ date: transformDate(e.timestamp), max_price: e.max_price, min_price: e.min_price, price: e.price, rate: e.rate })
+        })
+        newData.sort((a, b) => a.date.localeCompare(b.date) || a.time.localeCompare(b.time))
+        console.log(newData)
+
+        const splitData = []
+        newData.forEach((e) => {
+          splitData.push([e.date, e.max_price, e.min_price, e.price, e.rate])
         })
         // splitData.push(['2021-03-11', 2347.22, 1358.98, 2337.35, 2363.8])
         this.initChart(splitData)

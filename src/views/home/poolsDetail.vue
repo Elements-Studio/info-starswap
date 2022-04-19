@@ -83,7 +83,7 @@
               </div>
               <div class="sc-brqgnP eDrHS">
                 <div class="sc-chPdSV jOqbNQ css-1xcdix">Fees</div>
-                <div class="sc-chPdSV goKJOd css-5omc5c">{{ optionFees.series[0].data[0] }}</div>
+                <div class="sc-chPdSV goKJOd css-5omc5c">{{ feesFun(optionFees.series[0]) }}</div>
               </div>
             </div>
             <div class="cqwlBw">
@@ -108,7 +108,7 @@ import Header from '../../../src/components/header'
 import { getPoolDetail, poolFees, poolList } from '@/api/interface'
 import TransactionsList from '../../../src/components/transactionsList'
 import * as echarts from 'echarts'
-import { alignLeft,transformTime,transformDate,unitConvert } from '@/utils/public'
+import { alignLeft,transformDate,unitConvert } from '@/utils/public'
 
 // import { truncate } from 'fs/promises'
 // import { login } from '@/api/user'
@@ -132,6 +132,9 @@ export default {
         color: ['#80FFA5'],
         title: {
           text: 'TVL'
+        },
+        formatter: (params) => {
+          return this.coinUnitConvert(params[0].data)
         },
         tooltip: {
           trigger: 'axis',
@@ -195,10 +198,16 @@ export default {
         title: {
           text: 'Volume'
         },
+        formatter: (params) => {
+          return this.coinUnitConvert(params[0].data)
+        },
         tooltip: {
           trigger: 'axis',
           axisPointer: {
-            type: 'shadow'
+            type: 'cross',
+            label: {
+              backgroundColor: '#6a7985'
+            }
           }
         },
         grid: {
@@ -234,10 +243,16 @@ export default {
         title: {
           text: 'Fees'
         },
+        formatter: (params) => {
+          return params[0].axisValue + '</br>Fees：' + this.coinUnitConvert(params[0].data) + '</br>Fees Amount：' + this.coinUnitConvert(params[1].data)
+        },
         tooltip: {
           trigger: 'axis',
           axisPointer: {
-            type: 'shadow'
+            type: 'cross',
+            label: {
+              backgroundColor: '#6a7985'
+            }
           }
         },
         grid: {
@@ -285,6 +300,10 @@ export default {
     this.poolList_(0)
   },
   methods: {
+    feesFun(val){
+      // console.log(val.data)
+      return val.data.length == 0 ? '' : '$' + this.coinUnitConvert(val.data[val.data.length-1])
+    },
     coinUnitConvert(num){
       let data = unitConvert(num)
       return data.num + data.unit
@@ -336,13 +355,20 @@ export default {
     },
     getPoolFees() {
       poolFees({ page: this.page, token: this.token }).then((res) => {
-        // console.log(11, res)
+        console.log(11, res)
+        // 按时间排序
+        const newData = []
+        res.forEach((e) => {
+          newData.push({ date: transformDate(e.timestamp), fees_amount: e.fees_amount, fees: e.fees })
+        })
+        newData.sort((a, b) => a.date.localeCompare(b.date) || a.time.localeCompare(b.time))
+        console.log(newData)
 
         const timestamp = []
         const feesAmount = []
         const fees = []
-        res.forEach((e) => {
-          timestamp.push(transformTime(e.timestamp))
+        newData.forEach((e) => {
+          timestamp.push(e.date)
           feesAmount.push(e.fees_amount)
           fees.push(e.fees)
         })

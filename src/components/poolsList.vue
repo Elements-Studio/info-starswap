@@ -65,14 +65,11 @@ export default {
         })
       }else{
         getPool({ page: 1 }).then((res) => {
-          console.log(333,res)
+          // console.log(333,res)
           this.pools = res
           alignLeft()
         })
       }
-      
-
-      
     }
   }
 }

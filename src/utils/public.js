@@ -59,6 +59,7 @@ export function unitConvert(num) {
 }
 
 export function strNumSize(tempNum) {
+  if (tempNum == undefined) return
   var stringNum = tempNum.toString()
   var index = stringNum.indexOf('.')
   var newNum = stringNum
