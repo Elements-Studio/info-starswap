@@ -24,10 +24,10 @@
         <el-table-column prop="tvl_b_amount" label="tvlBAmount" >
           <template slot-scope="scope">{{coinUnitConvert(scope.row.tvl_b_amount)}}</template>
         </el-table-column>
-        <el-table-column prop="volume" label="volume" >
+        <el-table-column prop="volume" label="Volume 24H" >
           <template slot-scope="scope">${{coinUnitConvert(scope.row.volume)}}</template>
         </el-table-column>
-        <el-table-column prop="volume_amount" label="volumeAmount">
+        <el-table-column prop="volume_amount" label="Volume Amount">
           <template slot-scope="scope">{{coinUnitConvert(scope.row.volume_amount)}}</template>
         </el-table-column>
       </el-table>

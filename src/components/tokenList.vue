@@ -10,12 +10,12 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column prop="volume_amount" label="Volume Amount">
+        <el-table-column prop="volume_amount" label="Volume 24H Amount">
           <template slot-scope="scope">
              {{ coinUnitConvert(scope.row.volume_amount) }}
           </template>
         </el-table-column>
-        <el-table-column prop="volume" label="Volume">
+        <el-table-column prop="volume" label="Volume 24H">
           <template slot-scope="scope">${{coinUnitConvert(scope.row.volume)}}</template>
         </el-table-column>
         <el-table-column prop="tvl_amount" label="TVL Amount">
