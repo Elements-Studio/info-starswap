@@ -17,7 +17,7 @@
         <el-table-column prop="account" label="Account" width="160">
           <template slot-scope="scope">
             <span class="lr10">
-              <a class="iJZiMq" target="_blank" :href="'https://stcscan.io/main/address/' + scope.row.transaction_hash">{{ substring(scope.row.transaction_hash) }}</a>
+              <a class="iJZiMq" target="_blank" :href="'https://stcscan.io/main/address/' + scope.row.account">{{ substring(scope.row.account) }}</a>
             </span>
           </template>
         </el-table-column>
@@ -27,7 +27,7 @@
         <el-table-column prop="amount_b" label="amountB">
           <template slot-scope="scope">{{  coinUnitConvert(scope.row.amount_b)}} {{ scope.row.token_b}}</template>
         </el-table-column>
-        
+
         <el-table-column prop="total_value" label="totalValue">
           <template slot-scope="scope">${{  coinUnitConvert(scope.row.total_value)}}</template>
         </el-table-column>
@@ -101,7 +101,7 @@ export default {
       this.transactions_()
     },
     substring(str) {
-      return str.substring(0, 4) + '...' + str.substring(str.length - 4)
+      return str.substring(0, 6) + '...' + str.substring(str.length - 6)
     },
     // 时间戳转时间
     transformTime(timestamp) {
