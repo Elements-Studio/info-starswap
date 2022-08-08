@@ -14,7 +14,7 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column prop="account" label="Account" width="160">
+        <el-table-column prop="account" label="Account" width="162">
           <template slot-scope="scope">
             <span class="lr10">
               <a class="iJZiMq" target="_blank" :href="'https://stcscan.io/main/address/' + scope.row.account">{{ substring(scope.row.account) }}</a>
