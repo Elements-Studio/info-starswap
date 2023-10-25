@@ -90,7 +90,7 @@ export default {
           },
         },
         grid: {
-          left: '-6%',
+          left: '-3%',
           right: '10',
           bottom: '3%',
           containLabel: true
@@ -212,12 +212,14 @@ export default {
       return data.num + data.unit
     },
     swapStats_() {
-      swapStats({ page: this.page, count:30 }).then((res) => {
+      swapStats({ page: this.page, count:1000 }).then((res) => {
         // console.log(res)
         // 按日期排序
         const newData = []
-        res.forEach((e) => {
-          newData.push({ date: transformDate(e.timestamp), tvl: e.tvl, volume: e.volume })
+        res.reverse().forEach((e, index) => {
+          if (index < 30) {
+            newData.push({ date: transformDate(e.timestamp), tvl: e.tvl, volume: e.volume })
+          }
         })
         newData.sort((a, b) => a.date.localeCompare(b.date) || a.time.localeCompare(b.time))
         // console.log(newData)
