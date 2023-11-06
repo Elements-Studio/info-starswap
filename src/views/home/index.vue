@@ -216,7 +216,7 @@ export default {
         // console.log(res)
         // 按日期排序
         const newData = []
-        res.reverse().forEach((e, index) => {
+        res.reverse().sort((a, b) => b.timestamp - a.timestamp).forEach((e, index) => {
           if (index < 30) {
             newData.push({ date: transformDate(e.timestamp), tvl: e.tvl, volume: e.volume })
           }
